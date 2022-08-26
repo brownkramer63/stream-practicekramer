@@ -47,25 +47,26 @@ public class Practice {
     // Display all the countries
     public static List<Country> getAllCountries() {
         //TODO Implement the method
-        return new ArrayList<>();
+
+        return countryService.readAll();// did this one with cundullah
     }
 
     // Display all the departments
     public static List<Department> getAllDepartments() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return departmentService.readAll();
     }
 
     // Display all the jobs
     public static List<Job> getAllJobs() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return jobService.readAll();
     }
 
     // Display all the locations
     public static List<Location> getAllLocations() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return locationService.readAll();
     }
 
     // Display all the regions
@@ -125,7 +126,8 @@ public class Practice {
     // Display if there is any employee with salary less than 1000. If there is none, the method should return true
     public static boolean checkIfThereIsNoSalaryLessThan1000() {
         //TODO Implement the method
-        return false;
+        return !getAllEmployees().stream()
+                .anyMatch(employee -> employee.getSalary()<1000);
     }
 
     // Check if the salaries of all the employees in IT department are greater than 2000 (departmentName: IT)
