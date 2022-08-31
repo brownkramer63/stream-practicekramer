@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @Component
 public class Practice {
@@ -79,43 +80,65 @@ public class Practice {
     // Display all the job histories
     public static List<JobHistory> getAllJobHistories() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return jobHistoryService.readAll();
     }
 
     // Display all the employees' first names
     public static List<String> getAllEmployeesFirstName() {
         //TODO Implement the method
-        return new ArrayList<>();
+//        return getAllEmployees().stream()
+//                .map(employee -> employee.getFirstName())
+//                .collect(Collectors.toList());//this is how to do with lambda
+//        //with method reference
+       return getAllEmployees().stream()
+                .map(Employee::getFirstName)
+                .collect(Collectors.toList());
+
     }
 
     // Display all the countries' names
     public static List<String> getAllCountryNames() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllCountries().stream()
+                .map(Country::getCountryName)
+                .collect(Collectors.toList());
     }
 
     // Display all the departments' managers' first names
     public static List<String> getAllDepartmentManagerFirstNames() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllDepartments().stream()
+                .map(department -> department.getManager().getFirstName())
+                .collect(Collectors.toList());
     }
 
     // Display all the departments where manager name of the department is 'Steven'
     public static List<Department> getAllDepartmentsWhichManagerFirstNameIsSteven() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllDepartments().stream()
+                .filter(department -> department.getManager().getFirstName().equals("Steven"))
+                .collect(Collectors.toList());
     }
 
     // Display all the departments where postal code of the location of the department is '98199'
     public static List<Department> getAllDepartmentsWhereLocationPostalCodeIs98199() {
         //TODO Implement the method
-        return new ArrayList<>();
+        return getAllDepartments().stream()
+                .filter(department -> department.getLocation().getPostalCode().equals("98199"))
+                .collect(Collectors.toList());
+
     }
 
     // Display the region of the IT department
     public static Region getRegionOfITDepartment() throws Exception {
         //TODO Implement the method
-        return new Region();
+//        return getAllDepartments().stream()
+//                .filter(department -> department.getDepartmentName().equals("IT"))
+//                .findAny().get().getLocation().getCountry().getRegion();
+        //other way to do it
+        return getAllDepartments().stream()
+                .filter(department -> department.getDepartmentName().equals("IT"))
+                .findAny().orElseThrow().getLocation().getCountry().getRegion();
     }
 
     // Display all the departments where the region of department is 'Europe'
